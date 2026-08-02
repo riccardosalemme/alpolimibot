@@ -278,8 +278,8 @@ Type=simple
 User=polimibot
 Group=polimibot
 
-WorkingDirectory=/opt/polimibot/
-ExecStart=uv run bot/main.py
+WorkingDirectory=/opt/alpolimibot/
+ExecStart=/home/polimibot/.local/bin/uv run bot/main.py
 Restart=on-failure
 RestartSec=5s
 
