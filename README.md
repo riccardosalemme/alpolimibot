@@ -69,7 +69,7 @@ Si può **cercare un'aula digitando direttamente la sigla**, ad esempio `T.1.2` 
 
 ### Configurazione
 
-Crea un file `.env` nella root del progetto:
+Crea un file `.env` nella root del progetto.
 
 ```env
 BOT_TOKEN=<bot_token>
@@ -113,6 +113,10 @@ uv run jobs/spazi/5_arricchisci_occupazione.py --giorni 7 --workers 6
 ```
 
 #### Avvio del bot
+
+> [!IMPORTANT]  
+> Prima di avviare il bot assicurati di aver eseguito la migrazione dello schema del database (`sql/schema/db.sql`). Puoi anche eseguire `sql/schema/init.sql` per nascondere le aule non accessibili agli studenti, abilitare le sedi e le biblioteche principali.
+
 ```sh
 uv run bot/main.py
 ```

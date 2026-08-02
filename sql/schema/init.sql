@@ -43,7 +43,7 @@ WHERE sigla ILIKE ANY (ARRAY[
 -- Le aule del trifoglio vengono messe in cima.
 update aula
 set sort = 2
-where sigla like '%T.%'
+where sigla like '%T.%';
 
 
 -- ------------------------------------------------------------------
