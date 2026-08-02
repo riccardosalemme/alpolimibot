@@ -1,0 +1,17 @@
+[
+    {
+        "id": "352d189c-4811-46c1-8da4-705bb42b73f1",
+        "name": "Biblioteca Bovisa La Masa - Politecnico di Milano",
+        "slug": "biblioteca-bovisa-la-masa"
+    },
+    {
+        "id": "208fb078-ca07-4908-8136-3e9c1ba71031",
+        "name": "Biblioteca Bovisa Candiani - Politecnico di Milano",
+        "slug": "biblioteca-bovisa-candiani"
+    },
+    {
+        "id": "334eec6e-69c5-4ef8-b645-5f3085009fb5",
+        "name": "Biblioteca Campus Leonardo - Politecnico di Milano",
+        "slug": "biblioteca-campus-leonardo"
+    }
+]

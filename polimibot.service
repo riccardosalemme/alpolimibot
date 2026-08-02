@@ -1,0 +1,23 @@
+# /etc/systemd/system/polimibot.service
+#
+# Deploy:
+#   sudo cp polimibot.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now polimibot
+
+[Unit]
+Description=Aule Libere Polimi (Telegram Bot)
+After=network.target
+
+[Service]
+Type=simple
+User=polimibot
+Group=polimibot
+
+WorkingDirectory=/opt/polimibot/
+ExecStart=uv run bot/main.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

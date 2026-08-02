@@ -1,0 +1,13 @@
+[project]
+name = "poulimi-aule"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiogram>=3.30.0",
+    "beautifulsoup4>=4.14.3",
+    "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.0",
+    "requests>=2.32.5",
+]

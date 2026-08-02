@@ -1,0 +1,207 @@
+{
+    "data": {
+        "status": {
+            "isOpen": true,
+            "openingText": null,
+            "openingAt": null,
+            "isOpeningSoon": false,
+            "closingText": "Closes at 11:45 PM",
+            "closingAt": "2026-05-12 23:45:00",
+            "isClosingSoon": false
+        },
+        "notices": [],
+        "liveAttendance": {
+            "flow": null,
+            "occupancy": 85,
+            "waitingTime": null,
+            "maxWaitingTime": null
+        },
+        "todayForecasts": [
+            {
+                "hourRange": [
+                    "2026-05-12 18:30:00",
+                    "2026-05-12 19:00:00"
+                ],
+                "flow": null,
+                "flowEvolution": null,
+                "occupancy": 70,
+                "occupancyEvolution": "DECREASE",
+                "waitingTime": null,
+                "waitingTimeEvolution": null
+            },
+            {
+                "hourRange": [
+                    "2026-05-12 19:00:00",
+                    "2026-05-12 19:30:00"
+                ],
+                "flow": null,
+                "flowEvolution": null,
+                "occupancy": 60,
+                "occupancyEvolution": "DECREASE",
+                "waitingTime": null,
+                "waitingTimeEvolution": null
+            },
+            {
+                "hourRange": [
+                    "2026-05-12 19:30:00",
+                    "2026-05-12 20:00:00"
+                ],
+                "flow": null,
+                "flowEvolution": null,
+                "occupancy": 45,
+                "occupancyEvolution": "DECREASE",
+                "waitingTime": null,
+                "waitingTimeEvolution": null
+            },
+            {
+                "hourRange": [
+                    "2026-05-12 20:00:00",
+                    "2026-05-12 20:30:00"
+                ],
+                "flow": null,
+                "flowEvolution": null,
+                "occupancy": 35,
+                "occupancyEvolution": "DECREASE",
+                "waitingTime": null,
+                "waitingTimeEvolution": null
+            },
+            {
+                "hourRange": [
+                    "2026-05-12 20:30:00",
+                    "2026-05-12 21:00:00"
+                ],
+                "flow": null,
+                "flowEvolution": null,
+                "occupancy": 30,
+                "occupancyEvolution": "DECREASE",
+                "waitingTime": null,
+                "waitingTimeEvolution": null
+            },
+            {
+                "hourRange": [
+                    "2026-05-12 21:00:00",
+                    "2026-05-12 22:00:00"
+                ],
+                "flow": null,
+                "flowEvolution": null,
+                "occupancy": 15,
+                "occupancyEvolution": "DECREASE",
+                "waitingTime": null,
+                "waitingTimeEvolution": null
+            },
+            {
+                "hourRange": [
+                    "2026-05-12 22:00:00",
+                    "2026-05-12 23:30:00"
+                ],
+                "flow": null,
+                "flowEvolution": null,
+                "occupancy": 10,
+                "occupancyEvolution": "DECREASE",
+                "waitingTime": null,
+                "waitingTimeEvolution": null
+            }
+        ],
+        "forecasts": [
+            {
+                "day": "2026-05-12",
+                "todayOffset": 0,
+                "forecasts": [
+                    {
+                        "hourRange": null,
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 85,
+                        "occupancyEvolution": null,
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    },
+                    {
+                        "hourRange": [
+                            "2026-05-12 18:30:00",
+                            "2026-05-12 19:00:00"
+                        ],
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 70,
+                        "occupancyEvolution": "DECREASE",
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    },
+                    {
+                        "hourRange": [
+                            "2026-05-12 19:00:00",
+                            "2026-05-12 19:30:00"
+                        ],
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 60,
+                        "occupancyEvolution": "DECREASE",
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    },
+                    {
+                        "hourRange": [
+                            "2026-05-12 19:30:00",
+                            "2026-05-12 20:00:00"
+                        ],
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 45,
+                        "occupancyEvolution": "DECREASE",
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    },
+                    {
+                        "hourRange": [
+                            "2026-05-12 20:00:00",
+                            "2026-05-12 20:30:00"
+                        ],
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 35,
+                        "occupancyEvolution": "DECREASE",
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    },
+                    {
+                        "hourRange": [
+                            "2026-05-12 20:30:00",
+                            "2026-05-12 21:00:00"
+                        ],
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 30,
+                        "occupancyEvolution": "DECREASE",
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    },
+                    {
+                        "hourRange": [
+                            "2026-05-12 21:00:00",
+                            "2026-05-12 22:00:00"
+                        ],
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 15,
+                        "occupancyEvolution": "DECREASE",
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    },
+                    {
+                        "hourRange": [
+                            "2026-05-12 22:00:00",
+                            "2026-05-12 23:30:00"
+                        ],
+                        "flow": null,
+                        "flowEvolution": null,
+                        "occupancy": 10,
+                        "occupancyEvolution": "DECREASE",
+                        "waitingTime": null,
+                        "waitingTimeEvolution": null
+                    }
+                ]
+            }
+        ]
+    }
+}
