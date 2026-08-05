@@ -1,7 +1,7 @@
 [project]
-name = "poulimi-aule"
+name = "alpolimibot"
 version = "0.1.0"
-description = "Add your description here"
+description = "Trova le aule libere e guarda lo stato di occupazione della biblioteca direttamente da Telegram"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
