@@ -6,6 +6,12 @@
 
 <p align="center"> 
   Trova le <b>aule libere</b> e guarda lo stato di occupazione della <b>biblioteca</b> direttamente da Telegram
+
+  <p align="center">
+   <img src="https://healthchecks.io/b/2/c285823a-3c41-47eb-bcb4-0d0869643d54.svg" alt="[alpolimibot] Occupazione Aule">
+    <img src="https://healthchecks.io/b/2/8fd840be-db11-425e-8965-b1a733797a2d.svg" alt="[alpolimibot] Occupazione Biblioteca">
+  </p>
+
   <br> 
   <br>
 </p>
