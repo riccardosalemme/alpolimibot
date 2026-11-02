@@ -88,6 +88,11 @@ PGPASSWORD=postgres
 
 ### Installazione e avvio
 
+#### Creazione dello schema del database
+`sql/schema/db.sql` contiene lo schema del database richiesto (gli script non lo creano automaticamente).
+
+`sql/schema/init.sql` contiene la configurazione iniziale del bot (sedi abilitate, biblioteche abilitate, aule nascoste).
+
 #### Installazione delle dipendenze
 ```sh
 uv sync
@@ -293,6 +298,3 @@ RestartSec=5s
 WantedBy=multi-user.target
 
 ```
-
-
-

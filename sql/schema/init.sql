@@ -17,26 +17,26 @@ DO UPDATE SET
 -- ------------------------------------------------------------------
 
 -- Elenco delle aule
--- SELECT sigla, visible, sort, * 
+-- SELECT sigla, visible, sort, *
 -- FROM public.aula
 -- where visible = false
 -- order by sigla;
 
-UPDATE aula 
+UPDATE aula
 SET visible = false
 WHERE sigla ILIKE ANY (ARRAY[
-	'%LAB%', 
-	'%RIUNIONI%', 
-	'%AULA DIPARTIMENTALE%', 
-	'%AULA FASSO%', 
-	'%AULA INFORMATIZZATA%', 
+	'%LAB%',
+	'%RIUNIONI%',
+	'%AULA DIPARTIMENTALE%',
+	'%AULA FASSO%',
+	'%AULA INFORMATIZZATA%',
 	'%AULA MAGNA%',
 	'%EDUCAFE%',
 	'%ROGERS%',
 	'%SPAZIO LAVORO STUDENTI%',
-	'%G.0.1%',
-	'%G.0.2%',
-	'%A.0.2%',
+	-- '%G.0.1%',
+	-- '%G.0.2%',
+	-- '%A.0.2%',
 	'%MEL LAB%'
 ]);
 
@@ -52,9 +52,8 @@ where sigla like '%T.%';
 update sede
 set show = true
 where nome ILIKE ANY (ARRAY[
-	'%Milano Bovisa%', 
-	'%Milano Città Studi%', 
+	'%Milano Bovisa%',
+	'%Milano Città Studi%',
 	'%Como%',
 	'%Cremona%'
 ]);
-
