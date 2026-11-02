@@ -68,7 +68,7 @@ def _slot_to_time(slot_index: int) -> str:
     return f"{h:02d}:{m:02d}"
 
 
-def _parse_schedule_row(row) -> dict | None:
+def _parse_schedule_row(row, prev: dict | None = None) -> dict | None:
     """Parsa una riga <tr class='normalRow'> della griglia occupazioni."""
     cells = row.find_all("td", recursive=False)
     if not cells:
@@ -76,12 +76,14 @@ def _parse_schedule_row(row) -> dict | None:
 
     data_cell = row.find("td", class_="data")
     dove_cell = row.find("td", class_="dove")
-    if not data_cell:
+    if data_cell:
+        parts = data_cell.get_text(strip=True).split()
+        date_part = parts[-1] if parts else data_cell.get_text(strip=True)
+        dove_str = dove_cell.get_text(strip=True) if dove_cell else ""
+    elif prev:
+        date_part, dove_str = prev["data"], prev["aula"]
+    else:
         return None
-
-    parts = data_cell.get_text(strip=True).split()
-    date_part = parts[-1] if parts else data_cell.get_text(strip=True)
-    dove_str = dove_cell.get_text(strip=True) if dove_cell else ""
 
     grid_cells = [c for c in cells if c != data_cell and c != dove_cell]
 
@@ -139,11 +141,11 @@ def scrape_aula(idaula: int, from_date: date, to_date: date) -> list[dict]:
     resp.raise_for_status()
 
     soup = BeautifulSoup(resp.text, "html.parser")
-    return [
-        parsed
-        for row in soup.find_all("tr", class_="normalRow")
-        if (parsed := _parse_schedule_row(row))
-    ]
+    giorni: list[dict] = []
+    for row in soup.find_all("tr", class_="normalRow"):
+        if parsed := _parse_schedule_row(row, giorni[-1] if giorni else None):
+            giorni.append(parsed)
+    return giorni
 
 
 # ---------------------------------------------------------------------------
@@ -209,11 +211,10 @@ def process_aula(idaula: int, from_date: date, to_date: date, db_config: dict) -
     # Indicizza corsi scraped: {"GG/MM/AAAA": {"HH:MM": corso}}
     corsi_scraped: dict[str, dict[str, str]] = {}
     for g in giorni_scraper:
-        mappa = {}
+        mappa = corsi_scraped.setdefault(g["data"], {})
         for occ in g.get("occupazioni", []):
             if occ.get("corso"):
-                mappa[occ["inizio"]] = occ["corso"]
-        corsi_scraped[g["data"]] = mappa
+                mappa.setdefault(occ["inizio"], occ["corso"])
 
     # 2. Query DB e aggiornamento corso per ogni slot
     conn = psycopg2.connect(**db_config)
