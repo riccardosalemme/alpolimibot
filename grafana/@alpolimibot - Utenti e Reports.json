@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_POLIMI-AULE-BOT",
-      "label": "polimi-aule-bot",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "grafana-postgresql-datasource",
-      "pluginName": "PostgreSQL"
-    }
-  ],
   "__elements": {},
   "__requires": [
     {
@@ -66,7 +56,7 @@
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
-        "uid": "${DS_POLIMI-AULE-BOT}"
+        "uid": "polimi-aule-bot"
       },
       "fieldConfig": {
         "defaults": {
@@ -140,7 +130,7 @@
           },
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "${DS_POLIMI-AULE-BOT}"
+            "uid": "polimi-aule-bot"
           }
         }
       ],
@@ -150,7 +140,7 @@
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
-        "uid": "${DS_POLIMI-AULE-BOT}"
+        "uid": "polimi-aule-bot"
       },
       "fieldConfig": {
         "defaults": {
@@ -249,7 +239,7 @@
           },
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "${DS_POLIMI-AULE-BOT}"
+            "uid": "polimi-aule-bot"
           }
         }
       ],
@@ -259,7 +249,7 @@
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
-        "uid": "${DS_POLIMI-AULE-BOT}"
+        "uid": "polimi-aule-bot"
       },
       "fieldConfig": {
         "defaults": {
@@ -313,7 +303,7 @@
           "dataset": "polimi",
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "${DS_POLIMI-AULE-BOT}"
+            "uid": "polimi-aule-bot"
           },
           "editorMode": "code",
           "format": "table",
@@ -345,7 +335,7 @@
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
-        "uid": "${DS_POLIMI-AULE-BOT}"
+        "uid": "polimi-aule-bot"
       },
       "fieldConfig": {
         "defaults": {
@@ -421,7 +411,7 @@
           "dataset": "polimi_aule_prod",
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "${DS_POLIMI-AULE-BOT}"
+            "uid": "polimi-aule-bot"
           },
           "editorMode": "code",
           "format": "table",
@@ -453,7 +443,7 @@
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
-        "uid": "${DS_POLIMI-AULE-BOT}"
+        "uid": "polimi-aule-bot"
       },
       "fieldConfig": {
         "defaults": {
@@ -525,7 +515,7 @@
           "dataset": "polimi_aule_prod",
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "${DS_POLIMI-AULE-BOT}"
+            "uid": "polimi-aule-bot"
           },
           "editorMode": "code",
           "format": "table",
@@ -557,7 +547,7 @@
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
-        "uid": "${DS_POLIMI-AULE-BOT}"
+        "uid": "polimi-aule-bot"
       },
       "fieldConfig": {
         "defaults": {
@@ -629,7 +619,7 @@
           "dataset": "polimi_aule_prod",
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "${DS_POLIMI-AULE-BOT}"
+            "uid": "polimi-aule-bot"
           },
           "editorMode": "code",
           "format": "table",

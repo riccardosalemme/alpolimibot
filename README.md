@@ -84,6 +84,7 @@ PGPORT=5432
 PGDATABASE=postgres
 PGUSER=postgres
 PGPASSWORD=postgres
+GRAFANA_DB_PASSWORD=<password_a_scelta>   # solo per Grafana, vedi sotto
 ```
 
 ### Installazione e avvio
@@ -131,6 +132,27 @@ uv run jobs/spazi/5_arricchisci_occupazione.py --giorni 7 --workers 6
 ```sh
 uv run bot/main.py
 ```
+
+#### Monitoring con Grafana <a name = "grafana"></a>
+
+Quattro dashboard (`grafana/*.json`: Aule, Biblioteca, Occupazione aula, Utenti e Reports) leggono direttamente PostgreSQL con l'utente di sola lettura `grafana_ro`. Datasource (uid `polimi-aule-bot`) e dashboard vengono caricati automaticamente da `grafana/provisioning/`.
+
+```sh
+# 1. utente di sola lettura (rieseguibile: aggiorna la password)
+PGHOST="$PWD/.postgres/socket" PGUSER=postgres PGDATABASE=postgres \
+  psql -v ON_ERROR_STOP=1 -v pw="$(grep ^GRAFANA_DB_PASSWORD= .env | cut -d= -f2)" -f sql/schema/grafana_ro.sql
+
+# 2. Grafana su http://localhost:3000 (solo loopback, login iniziale admin/admin)
+docker run -d --name alpolimibot-grafana --restart unless-stopped --network host \
+  -e GF_SERVER_HTTP_ADDR=127.0.0.1 \
+  -e GRAFANA_DB_PASSWORD="$(grep ^GRAFANA_DB_PASSWORD= .env | cut -d= -f2)" \
+  -v "$PWD/grafana/provisioning:/etc/grafana/provisioning:ro" \
+  -v "$PWD/grafana:/dashboards:ro" \
+  -v alpolimibot-grafana-data:/var/lib/grafana \
+  grafana/grafana-oss:12.4.0
+```
+
+Per usare le dashboard su un altro Grafana basta creare un datasource PostgreSQL con uid `polimi-aule-bot` e importare i JSON. I pannelli di biblioteca si popolano a ogni esecuzione di `jobs/affluences/occupazione_biblioteca.py`.
 
 ---
 

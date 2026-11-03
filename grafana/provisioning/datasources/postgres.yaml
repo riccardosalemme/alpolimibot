@@ -1,0 +1,13 @@
+apiVersion: 1
+datasources:
+  - name: polimi-aule-bot
+    uid: polimi-aule-bot
+    type: grafana-postgresql-datasource
+    url: localhost:5432
+    user: grafana_ro
+    jsonData:
+      database: postgres
+      sslmode: disable
+      postgresVersion: 1800
+    secureJsonData:
+      password: $GRAFANA_DB_PASSWORD
