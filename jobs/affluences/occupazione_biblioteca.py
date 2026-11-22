@@ -30,11 +30,39 @@ HEADERS = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:150.0) Gecko/20100101 Firefox/150.0',
 }
 
+ANDROID_DEVICE_ID = os.getenv("ANDROID_DEVICE_ID", "12345678abcdefgh")
+ANDROID_DEVICE_LANG = os.getenv("ANDROID_DEVICE_LANG", "en")
+ANDROID_DEVICE_USER_AGENT = os.getenv("ANDROID_DEVICE_USER_AGENT", "Affluences/202606010 (Android; 15)")
+ANDROID_APP_VERSION = os.getenv("ANDROID_APP_VERSION", "202606010")
 
-def fetch_live_from_api(site_uuid: str) -> dict | None:
+
+
+def load_affluences_token():
+    with open(".affluences_token", "r") as f:
+        api_token = f.readline()
+        if(len(api_token) != 36):
+            log.error("Error reading .affluences_tokne. Content: %s", api_token)
+            return None
+        log.info("Affluences token loaded. %s", api_token)
+        return api_token
+
+
+
+def fetch_live_from_api(site_uuid: str, api_token: str) -> dict | None:
     url = f'https://api.affluences.com/app/v4/sites/{site_uuid}/live-data'
+    headers = {
+        "authorization": api_token,
+        "user-agent": ANDROID_DEVICE_USER_AGENT,
+        "accept-language": ANDROID_DEVICE_LANG,
+        "accept-encoding": "gzip",
+        "host": "api.affluences.com",
+        "x-service-name": "mobile_app",
+        "content-type": "application/json",
+        "x-device-type": "android",
+        "x-app-version": ANDROID_APP_VERSION,
+    }
     try:
-        response = requests.get(url, headers=HEADERS, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -57,8 +85,14 @@ def update_occupancies() -> None:
 
         log.info("Inizio fetch per %d siti...", len(biblioteche))
 
+        # Load app token
+        api_token = load_affluences_token()
+        if(not api_token):
+            log.error("Can't load Affluences token.")
+            return
+
         for b in biblioteche:
-            raw_data = fetch_live_from_api(b['affluences_id'])
+            raw_data = fetch_live_from_api(b['affluences_id'], api_token)
 
             if not raw_data:
                 continue

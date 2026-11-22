@@ -15,3 +15,5 @@ uv.lock
 
 # Foto delle aule
 data/foto/*
+
+.affluences_token
