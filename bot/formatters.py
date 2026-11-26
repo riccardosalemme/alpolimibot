@@ -41,7 +41,7 @@ def is_now_occupied(slots: list[dict]) -> bool:
 # ── Schede aula ───────────────────────────────────────────────────
 
 def format_aula_card(aula: dict, slots: list[dict], giorno: date, lang: str = DEFAULT_LANG) -> str:
-    """Scheda aula completa: sigla, campus, capienza, stato, occupazione, link."""
+    """Scheda aula completa: nome, campus, capienza, stato, occupazione, link."""
     url = POLIMI_AULA_URL.format(idaula=aula["idaula"])
 
     edificio = aula.get("edificio", "")
@@ -53,7 +53,7 @@ def format_aula_card(aula: dict, slots: list[dict], giorno: date, lang: str = DE
     cap_str = t(lang, "aula_capacity", cap=cap) if cap else t(lang, "aula_capacity_nd")
 
     linee = [
-        f"📍 {html.bold('Aula ' + aula['sigla'])}",
+        f"📍 {html.bold('Aula ' + aula['nome'])}",
         f"🏛 {location}",
         cap_str,
     ]
@@ -90,7 +90,7 @@ _CODICE_CORSO = re.compile(r"\s+\d{6}\b")
 
 def format_aula_settimana(aula: dict, week_slots: dict, lang: str = DEFAULT_LANG) -> str:
     """Occupazione dei prossimi 7 giorni feriali con nome corso."""
-    linee = [f"📅 {html.bold(t(lang, 'aula_week_header', sigla=aula['sigla']))}"]
+    linee = [f"📅 {html.bold(t(lang, 'aula_week_header', sigla=aula['nome']))}"]
     ultimo_giorno = list(week_slots)[-1] if week_slots else None
 
     for data_str, slots in week_slots.items():
@@ -124,4 +124,4 @@ def format_aula_button(aula: dict) -> str:
     occupata = aula.get("occupata")
     stato = "" if occupata is None else ("🔴 " if occupata else "🟢 ")
     presa = "🔌 " if aula.get("has_power_sockets") else ""
-    return f"{stella}{stato}{presa}{aula['sigla']}"
+    return f"{stella}{stato}{presa}{aula['nome']}"

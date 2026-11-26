@@ -130,7 +130,7 @@ def db_aule_preferite(user_id: int, adesso: datetime) -> list[dict]:
     sql = """
         SELECT
             a.idaula,
-            a.sigla,
+            a.nome,
             a.has_power_sockets,
             EXISTS (
                 SELECT 1
@@ -144,8 +144,7 @@ def db_aule_preferite(user_id: int, adesso: datetime) -> list[dict]:
         FROM user_favourite uf
         JOIN aula a ON a.idaula = uf.idaula
         WHERE uf.user_id = %(user_id)s
-          AND a.visible  = TRUE
-        ORDER BY a.sigla
+        ORDER BY a.nome
     """
     with get_conn() as conn:
         with conn.cursor() as cur:

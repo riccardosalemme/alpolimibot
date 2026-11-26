@@ -5,7 +5,9 @@ Note sulle query:
  * la tolleranza sulla fine dello slot viene da config, così SQL e Python non
    possono divergere;
  * `preferita` si calcola con un EXISTS dentro la query stessa: niente seconda
-   interrogazione né riordino in Python.
+   interrogazione né riordino in Python;
+ * il bot mostra `nome` (di default uguale alla sigla, personalizzabile in
+   init.sql); la ricerca testuale accetta sia il nome sia la sigla originale.
 """
 
 from datetime import date, datetime, timedelta
@@ -17,7 +19,7 @@ from db.pool import get_conn
 # Blocco riusato da tutte le query che restituiscono una scheda aula.
 _AULA_FIELDS = """
     a.idaula,
-    a.sigla,
+    a.nome,
     a.capienza,
     e.nome                AS edificio,
     ca.nome               AS campus,
@@ -68,7 +70,7 @@ def db_aule_libere(sede_csis: str, da: datetime, a: datetime, user_id: int) -> l
                 AND os.inizio < %(a)s
                 AND os.fine - (%(tolleranza)s * interval '1 minute') > %(da)s
           )
-        ORDER BY preferita DESC, a.sort DESC, a.has_power_sockets DESC, a.sigla
+        ORDER BY preferita DESC, a.sort DESC, a.has_power_sockets DESC, a.nome
     """
     with get_conn() as conn:
         with conn.cursor() as cur:
@@ -88,17 +90,27 @@ def _normalize_sigla(sigla: str) -> str:
 
 
 def db_cerca_aula(sigla: str, user_id: int) -> Optional[dict]:
-    """Ricerca per sigla, tollerante a punti e spazi. Preferisce il match esatto."""
+    """
+    Ricerca per nome o sigla, tollerante a punti e spazi. Include anche le aule
+    nascoste: se l'utente le cerca esplicitamente, le vuole vedere.
+
+    Con sigle duplicate in sedi diverse (es. B.2.3 a Leonardo e a Lecco) vince
+    quella della sede scelta dall'utente.
+    """
     sql = f"""
         SELECT {_AULA_FIELDS}
         {_AULA_JOINS}
-        WHERE a.visible = TRUE
-          AND (
-              UPPER(a.sigla) = UPPER(%(sigla)s)
-              OR REPLACE(REPLACE(UPPER(a.sigla), '.', ''), ' ', '') = %(sigla_norm)s
-          )
+        WHERE UPPER(a.nome)  = UPPER(%(sigla)s)
+           OR UPPER(a.sigla) = UPPER(%(sigla)s)
+           OR REPLACE(REPLACE(UPPER(a.nome),  '.', ''), ' ', '') = %(sigla_norm)s
+           OR REPLACE(REPLACE(UPPER(a.sigla), '.', ''), ' ', '') = %(sigla_norm)s
         ORDER BY
-            CASE WHEN UPPER(a.sigla) = UPPER(%(sigla)s) THEN 0 ELSE 1 END,
+            CASE WHEN UPPER(a.nome) = UPPER(%(sigla)s) OR UPPER(a.sigla) = UPPER(%(sigla)s)
+                 THEN 0 ELSE 1 END,
+            a.csis IS NOT DISTINCT FROM (
+                SELECT up.sede_csis FROM user_preference up WHERE up.user_id = %(user_id)s
+            ) DESC,
+            a.visible DESC,
             a.sort DESC
         LIMIT 1
     """
@@ -118,7 +130,6 @@ def db_cerca_aula_by_id(idaula: int, user_id: int) -> Optional[dict]:
         SELECT {_AULA_FIELDS}
         {_AULA_JOINS}
         WHERE a.idaula = %(idaula)s
-          AND a.visible = TRUE
         LIMIT 1
     """
     with get_conn() as conn:

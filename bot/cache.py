@@ -55,7 +55,7 @@ def slim_aula(aula: dict) -> dict:
     """Solo i campi usati da aule_keyboard; la scheda dettaglio ricarica dal DB."""
     return {
         "idaula": aula["idaula"],
-        "sigla": aula["sigla"],
+        "nome": aula["nome"],
         "has_power_sockets": aula.get("has_power_sockets"),
         "preferita": aula.get("preferita"),
         # None = stato non pertinente; solo /fav lo valorizza. Resta congelato
