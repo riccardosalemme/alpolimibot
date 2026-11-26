@@ -91,7 +91,9 @@ PGPASSWORD=postgres
 #### Creazione dello schema del database
 `sql/schema/db.sql` contiene lo schema del database richiesto (gli script non lo creano automaticamente).
 
-`sql/schema/init.sql` contiene la configurazione iniziale del bot (sedi abilitate, biblioteche abilitate, aule nascoste).
+`sql/schema/init.sql` contiene la configurazione iniziale del bot (sedi abilitate, biblioteche abilitate, aule nascoste, nomi personalizzati delle aule).
+
+`sql/migrations/` contiene le modifiche allo schema per i database già esistenti: vanno eseguite in ordine numerico, prima di `init.sql`. Su un database nuovo creato da `db.sql` non servono.
 
 #### Installazione delle dipendenze
 ```sh

@@ -72,6 +72,7 @@ CREATE TABLE piano (
 CREATE TABLE aula (
     idaula                      INTEGER        PRIMARY KEY,
     sigla                       VARCHAR(50),
+    nome                        VARCHAR(50), -- per il bot, di default uguale alla sigla (vedi 1_spazi.py)
     csiv                        VARCHAR(30),
     csip                        CHAR(10)       REFERENCES piano(csip) ON DELETE SET NULL,
     csie                        CHAR(7)        REFERENCES edificio(csie) ON DELETE SET NULL,
@@ -178,7 +179,8 @@ CREATE TABLE user_favourite (
 CREATE TABLE report (
     id              SERIAL      PRIMARY KEY,
     messaggio       TEXT        NOT NULL,
-    inviato_il      TIMESTAMP   NOT NULL DEFAULT NOW()
+    inviato_il      TIMESTAMP   NOT NULL DEFAULT NOW(),
+    gestito         BOOLEAN     NOT NULL DEFAULT FALSE
 );
 
 -- -----------------------------------------------------------

@@ -226,6 +226,7 @@ def insert_aule(cur, aula_list: list, csie_to_csis: dict[str, str]) -> None:
         rows.append((
             int(a["idaula"]),
             a.get("sigla"),
+            a.get("sigla"),  # nome: di default uguale alla sigla
             a.get("csiv"),
             a.get("csip") or None,
             csie,
@@ -262,7 +263,7 @@ def insert_aule(cur, aula_list: list, csie_to_csis: dict[str, str]) -> None:
         cur,
         """
         INSERT INTO aula (
-            idaula, sigla, csiv, csip, csie, csis, id_vano,
+            idaula, sigla, nome, csiv, csip, csie, csis, id_vano,
             esterna, indir_esterna, ubicazione_esterna,
             note, uso_test,
             capienza_ate, morfologia, posti_disabili, idfoto,
@@ -272,6 +273,9 @@ def insert_aule(cur, aula_list: list, csie_to_csis: dict[str, str]) -> None:
         ) VALUES %s
         ON CONFLICT (idaula) DO UPDATE
             SET sigla                    = EXCLUDED.sigla,
+                -- il nome segue la sigla, a meno che non sia stato personalizzato (vedi init.sql)
+                nome                     = CASE WHEN aula.nome IS NULL OR aula.nome = aula.sigla
+                                                THEN EXCLUDED.sigla ELSE aula.nome END,
                 csiv                     = EXCLUDED.csiv,
                 csip                     = EXCLUDED.csip,
                 csie                     = EXCLUDED.csie,

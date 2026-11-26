@@ -40,6 +40,29 @@ WHERE sigla ILIKE ANY (ARRAY[
 	'%MEL LAB%'
 ]);
 
+-- Aule solo prenotabili: nascoste dai risultati, ma trovabili cercandole per sigla.
+update aula
+set visible = false
+where idaula in (
+	726,  -- G.1
+	2012  -- G.2
+);
+
+
+-- ------------------------------------------------------------------
+-- Nomi personalizzati (il job 1_spazi.py non li sovrascrive)
+-- ------------------------------------------------------------------
+
+-- '2.2.5 - VIRTUAL LAB': va dopo il blocco '%LAB%', perché deve restare visibile.
+update aula
+set nome = '2.2.5', visible = true
+where idaula = 2328;
+
+-- 'A - ALDO ROSSI', come le aule B, C, D...
+update aula
+set nome = 'A'
+where idaula = 721;
+
 -- Le aule del trifoglio vengono messe in cima.
 update aula
 set sort = 2
